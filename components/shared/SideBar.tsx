@@ -21,14 +21,7 @@ const SideBar = async () => {
           href="/dashboard"
           className="flex gap-3 items-center"
         >
-          {/* <img
-            src="/assets/images/logo.png"
-            alt="logo"
-            width={200}
-          /> */}
-          <h1 className="font-serif text-primary font-bold text-5xl tracking-tight">
-            kyosk
-          </h1>
+          <h1 className="logo">kyosk</h1>
         </Link>
         <Link
           href={`dashboard/profile`}
@@ -46,13 +39,13 @@ const SideBar = async () => {
             return (
               <li
                 key={link.label}
-                className={`group font-bolb ${'link-active'}`}
+                className="font-bold hover:text-primary"
               >
                 <Link
                   href={link.route}
-                  className="flex gap-4 items-center p-3"
+                  className="flex gap-2 items-center p-3"
                 >
-                  <link.icon className="h-6 w-6"/>
+                  <link.icon className="h-6 w-6" />
                   {link.label}
                 </Link>
               </li>

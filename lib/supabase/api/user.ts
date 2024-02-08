@@ -14,6 +14,7 @@ export async function createUserAccount({
   password,
   name,
   company,
+  address
 }: NewUser) {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
@@ -25,6 +26,7 @@ export async function createUserAccount({
         data: {
           full_name: name,
           company: company,
+          address: address
         },
       },
     })

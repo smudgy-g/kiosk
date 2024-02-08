@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils'
 import QueryProvider from '@/components/context/QueryProvider'
 import SessionProvider from '@/components/context/SessionContext'
 import { fontSans, fontSerif } from '@/components/shared/Font'
+import { ThemeProvider } from '@/components/context/ThemeProvider'
 
 export const metadata: Metadata = {
   title: 'Kiosk',
@@ -39,8 +40,15 @@ export default async function RootLayout({
           sessionUser={session?.user}
         >
           <QueryProvider>
-            {children}
-            <Toaster />
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster />
+            </ThemeProvider>
           </QueryProvider>
         </SessionProvider>
       </body>

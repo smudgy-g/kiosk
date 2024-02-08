@@ -12,9 +12,6 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
       <section
         className="flex flex-1"
-        style={{
-          backgroundImage: 'url(/assets/images/bg.svg)',
-        }}
       >
         <Suspense fallback={<Loading />}>{children}</Suspense>
       </section>

@@ -8,16 +8,17 @@ import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
 import { useCreateUser } from '@/lib/queries/user'
-import { Input  } from '@/components/ui/input'
+import { Input } from '@/components/ui/input'
 
 const SignUpForm = () => {
-  const {mutateAsync: createNewUser} = useCreateUser()
+  const { mutateAsync: createNewUser } = useCreateUser()
   const form = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
@@ -25,6 +26,7 @@ const SignUpForm = () => {
       company: '',
       email: '',
       password: '',
+      address: '',
     },
   })
 
@@ -35,6 +37,7 @@ const SignUpForm = () => {
       email: data.email,
       name: data.name,
       password: data.password,
+      address: data.address,
     })
   }
 
@@ -92,6 +95,22 @@ const SignUpForm = () => {
                 />
               </FormControl>
 
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="address"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Delivery Address</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="15 Bunbury Lane, 10543, NY"
+                  {...field}
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}

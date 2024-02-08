@@ -92,31 +92,31 @@ export type Database = {
       }
       products: {
         Row: {
+          category: string | null
           created_at: string
           id: string
           name: string | null
           price: number | null
           product_code: string | null
           supplier_id: string | null
-          category: string | null
         }
         Insert: {
+          category?: string | null
           created_at?: string
           id?: string
           name?: string | null
           price?: number | null
           product_code?: string | null
           supplier_id?: string | null
-          category?: string | null
         }
         Update: {
+          category?: string | null
           created_at?: string
           id?: string
           name?: string | null
           price?: number | null
           product_code?: string | null
           supplier_id?: string | null
-          category?: string | null
         }
         Relationships: [
           {
@@ -130,18 +130,21 @@ export type Database = {
       }
       profiles: {
         Row: {
+          address: string | null
           company: string | null
           full_name: string | null
           id: string
           updated_at: string | null
         }
         Insert: {
+          address?: string | null
           company?: string | null
           full_name?: string | null
           id: string
           updated_at?: string | null
         }
         Update: {
+          address?: string | null
           company?: string | null
           full_name?: string | null
           id?: string

@@ -30,6 +30,7 @@ export type NewUser = {
   password: string
   name: string
   company: string
+  address: string
 }
 
 // export interface User {

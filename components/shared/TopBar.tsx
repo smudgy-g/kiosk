@@ -9,12 +9,7 @@ const TopBar = () => {
           href="/dashboard"
           className="flex gap-3 items-center"
         >
-          {/* <img
-            src="/assets/images/logo.png"
-            alt="logo"
-            width={170}
-          /> */}
-          <h1 className="font-serif text-primary font-bold text-3xl tracking-tight">
+          <h1 className="logo">
             kyosk
           </h1>
         </Link>
