@@ -9,7 +9,7 @@ export default function SupplierList() {
 
   if (isError) return <h3>Error fetching suppliers</h3>
   return (
-    <div className="flex flex-wrap justify-center md:justify-start gap-4 flex-row">
+    <div className="flex flex-wrap justify-evenly md:justify-start gap-4">
       {isLoading &&
         [1, 2, 3, 4].map((e: number) => <SkeletonSupplierCard key={e} />)}
       {suppliers &&

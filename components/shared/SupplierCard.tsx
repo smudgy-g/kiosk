@@ -14,7 +14,7 @@ import Link from 'next/link'
 export default function SupplierCard({ data }: { data: Supplier }) {
   const { contact_name = '', email = '', name = '', id } = data
   return (
-    <Card className="w-full md:min-w-[195px] md:w-52 max-w-64 flex flex-col justify-between">
+    <Card className="w-full md:min-w-[195px] max-w-72 flex flex-col justify-between">
       <CardHeader>
         <CardTitle className="text-xl tracking-tight leading-6">
           {name}

@@ -1,14 +1,13 @@
-'use client'
-
-import { NAV_LINKS } from '@/constants'
-import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '../ui/button'
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/utils/supabase/server'
+import NavLinks from './NavLinks'
+import { cookies } from 'next/headers'
+import { ExitIcon } from '@radix-ui/react-icons'
 
 const SideBar = async () => {
-  const pathname = usePathname()
-  const supabase = createClient()
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
 
   const {
     data: { user },
@@ -32,28 +31,8 @@ const SideBar = async () => {
             <p className="text-sm">{user?.email}</p>
           </div>
         </Link>
-
-        <ul className="flex flex-col space-y-6">
-          {NAV_LINKS.map((link) => {
-            const isActive = pathname.startsWith(link.route)
-            return (
-              <li
-                key={link.label}
-                className={`font-bold hover:text-primary ${
-                  isActive && 'text-primary'
-                }`}
-              >
-                <Link
-                  href={link.route}
-                  className="flex gap-2 items-center p-3"
-                >
-                  <link.icon className="h-6 w-6" />
-                  {link.label}
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
+        <NavLinks />
+        
       </div>
       <form
         action="/auth/signout"
@@ -63,6 +42,7 @@ const SideBar = async () => {
           className="btn"
           type="submit"
         >
+          <ExitIcon className='w-4 h-4 mr-2' />
           Sign out
         </Button>
       </form>
