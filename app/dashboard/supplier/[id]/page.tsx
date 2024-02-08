@@ -3,7 +3,7 @@
 import DeleteSupplierButton from '@/components/shared/DeleteSupplierButton'
 import ProductButton from '@/components/shared/ProductButton'
 import UpdateSupplierButton from '@/components/shared/UpdateSupplierButton'
-import { productColumns } from '@/components/shared/tables/ProductColumns'
+import { productColumnsDef } from '@/components/shared/tables/ProductColumnsDef'
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -78,7 +78,7 @@ export default function SupplierSlugRoute({
         )}
         {products && (
           <DataTable
-            columns={productColumns}
+            columns={productColumnsDef}
             data={products as Product[]}
           />
         )}

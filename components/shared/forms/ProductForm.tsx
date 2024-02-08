@@ -1,4 +1,4 @@
-import { GearIcon } from '@radix-ui/react-icons'
+import { ReloadIcon } from '@radix-ui/react-icons'
 import React, { Dispatch, SetStateAction } from 'react'
 import { Form, FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { Button } from '../../ui/button'
@@ -220,7 +220,7 @@ export default function ProductForm({
       >
         {!form.formState.isSubmitting && <span>{type}</span>}
         {form.formState.isSubmitting && (
-          <GearIcon className="animate-spin w-4 h-4" />
+          <ReloadIcon className="animate-spin w-4 h-4" />
         )}
       </Button>
     </FormProvider>

@@ -8,7 +8,8 @@ import { cn } from '@/lib/utils'
 import QueryProvider from '@/components/context/QueryProvider'
 import SessionProvider from '@/components/context/SessionContext'
 import { fontSans, fontSerif } from '@/components/shared/Font'
-import { ThemeProvider } from '@/components/context/ThemeProvider'
+import { Providers } from '@/components/context/Providers'
+// import { ThemeProvider } from '@/components/context/ThemeProvider'
 
 export const metadata: Metadata = {
   title: 'Kiosk',
@@ -35,22 +36,16 @@ export default async function RootLayout({
           fontSerif.variable
         )}
       >
-        <SessionProvider
+        {/* <SessionProvider
           accessToken={session?.access_token}
-          sessionUser={session?.user}
-        >
-          <QueryProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="dark"
-              enableSystem
-              disableTransitionOnChange
-            >
-              {children}
-              <Toaster />
-            </ThemeProvider>
-          </QueryProvider>
-        </SessionProvider>
+          
+        > */}
+
+        <Providers accessToken={session}>{children}</Providers>
+        <Toaster />
+        {/* </ThemeProvider> */}
+        {/* </QueryProvider> */}
+        {/* </SessionProvider> */}
       </body>
     </html>
   )

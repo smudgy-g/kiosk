@@ -7,11 +7,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { DotsVerticalIcon, CaretSortIcon } from '@radix-ui/react-icons'
+import { DotsVerticalIcon } from '@radix-ui/react-icons'
 import {
   Dialog,
   DialogClose,
@@ -28,7 +27,7 @@ import { useDeleteProduct } from '@/lib/queries/products'
 import { toast } from '@/components/ui/use-toast'
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header'
 
-export const productColumns: ColumnDef<Product>[] = [
+export const productColumnsDef: ColumnDef<Product>[] = [
   {
     accessorKey: 'product_code',
     header: ({ column }) => (

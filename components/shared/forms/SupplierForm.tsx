@@ -1,4 +1,4 @@
-import { GearIcon } from '@radix-ui/react-icons'
+import { ReloadIcon } from '@radix-ui/react-icons'
 import React, { Dispatch, SetStateAction } from 'react'
 import { Form, FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { Button } from '../../ui/button'
@@ -18,7 +18,6 @@ import { Input } from '../../ui/input'
 import { Supplier } from '@/types'
 import { useRouter } from 'next/navigation'
 import { useCreateSupplier, useUpdateSupplier } from '@/lib/queries/suppliers'
-import { useSessionContext } from '../../context/SessionContext'
 import { createClient } from '@/utils/supabase/client'
 
 type SupplierFormProps = {
@@ -190,7 +189,7 @@ export default function SupplierForm({
       >
         {!form.formState.isSubmitting && <span>{type}</span>}
         {form.formState.isSubmitting && (
-          <GearIcon className="animate-spin w-4 h-4" />
+          <ReloadIcon className="animate-spin w-4 h-4" />
         )}
       </Button>
     </FormProvider>

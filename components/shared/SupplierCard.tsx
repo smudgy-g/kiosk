@@ -8,10 +8,18 @@ import {
   CardTitle,
 } from '../ui/card'
 import { Button } from '../ui/button'
-import { EyeOpenIcon, PlusCircledIcon } from '@radix-ui/react-icons'
+import { Badge } from '@/components/ui/badge'
+
+import { EyeOpenIcon, PaperPlaneIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 
-export default function SupplierCard({ data }: { data: Supplier }) {
+export default function SupplierCard({
+  data,
+  hasOrder,
+}: {
+  data: Supplier
+  hasOrder?: boolean
+}) {
   const { contact_name = '', email = '', name = '', id } = data
   return (
     <Card className="w-full md:min-w-[195px] max-w-72 flex flex-col justify-between">
@@ -19,7 +27,9 @@ export default function SupplierCard({ data }: { data: Supplier }) {
         <CardTitle className="text-xl tracking-tight leading-6">
           {name}
         </CardTitle>
-        <CardDescription></CardDescription>
+        <CardDescription>
+          {hasOrder && <Badge className='bg-[hsl(var(--highlight))]'>Order in progress</Badge>}
+        </CardDescription>
       </CardHeader>
       <CardFooter className="flex flex-col gap-2">
         <Button
@@ -38,8 +48,8 @@ export default function SupplierCard({ data }: { data: Supplier }) {
           className="w-full"
           asChild
         >
-          <Link href={`/dashboard/supplier/${id}`}>
-            <PlusCircledIcon className="mr-2 h-4 w-4" />
+          <Link href={`/dashboard/supplier/${id}/order`}>
+            <PaperPlaneIcon className="mr-2 h-4 w-4" />
             Order
           </Link>
         </Button>
