@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Button } from '../ui/button'
+import { ExitIcon } from '@radix-ui/react-icons'
 
 const TopBar = () => {
   return (
@@ -9,9 +10,7 @@ const TopBar = () => {
           href="/dashboard"
           className="flex gap-3 items-center"
         >
-          <h1 className="logo">
-            kyosk
-          </h1>
+          <h1 className="logo">kyosk</h1>
         </Link>
 
         <div className="flex gap-4">
@@ -19,18 +18,23 @@ const TopBar = () => {
             action="/auth/signout"
             method="post"
           >
-            <Button type="submit">Sign out</Button>
+            <Button
+              type="submit"
+              size="icon"
+            >
+              <ExitIcon className="w-4 h-4" />
+            </Button>
           </form>
-          <Link
+          {/* <Link
             href={`dashboard/profile`}
             className="flex gap-3"
           >
-            {/* <img
+            <img
               src={user.imageUrl}
               alt="Profile"
               className="h-9"
-            /> */}
-          </Link>
+            />
+          </Link> */}
         </div>
       </div>
     </section>

@@ -24,10 +24,9 @@ export default function UpdateSupplierButton({ data }: { data: Supplier }) {
       <DialogTrigger asChild>
         <Button
           size="icon"
-          variant="outline"
-          className="p-1"
+          variant={'secondary'}
         >
-          <Pencil2Icon className="h-4 w-4" />
+          <Pencil2Icon className="h-5 w-5" />
         </Button>
       </DialogTrigger>
       <DialogContent>

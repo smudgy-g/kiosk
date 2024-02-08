@@ -1,21 +1,21 @@
+'use client'
+
 import { NAV_LINKS } from '@/constants'
-import { Database } from '@/types/supabase'
-// import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '../ui/button'
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '@/utils/supabase/client'
 
 const SideBar = async () => {
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
+  const pathname = usePathname()
+  const supabase = createClient()
 
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
   return (
-    <nav className="hidden md:flex px-6 py-10 flex-col justify-between min-w-[270px] border-white border-r">
+    <nav className="hidden md:flex px-6 py-10 flex-col justify-between max-w-[250px] border-white border-r">
       <div className="flex flex-col gap-11">
         <Link
           href="/dashboard"
@@ -35,11 +35,13 @@ const SideBar = async () => {
 
         <ul className="flex flex-col space-y-6">
           {NAV_LINKS.map((link) => {
-            // const isActive = pathname === link.route
+            const isActive = pathname.startsWith(link.route)
             return (
               <li
                 key={link.label}
-                className="font-bold hover:text-primary"
+                className={`font-bold hover:text-primary ${
+                  isActive && 'text-primary'
+                }`}
               >
                 <Link
                   href={link.route}

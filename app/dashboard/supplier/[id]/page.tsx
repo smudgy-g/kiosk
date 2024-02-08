@@ -17,6 +17,7 @@ import {
   TrashIcon,
 } from '@radix-ui/react-icons'
 import Link from 'next/link'
+import { Separator } from '@/components/ui/separator'
 
 type SupplierSlugRoute = {
   params: { id: string }
@@ -39,7 +40,7 @@ export default function SupplierSlugRoute({
         <div className="w-full max-w-xl flex flex-col gap-4">
           <div className="flex w-full justify-between items-start">
             <h2 className="text-primary text-4xl font-bold">{supplier.name}</h2>
-            <div className="flex flex-col py-1 md:flex-row items-end gap-2">
+            <div className="flex py-1 flex-row items-end gap-2">
               <UpdateSupplierButton data={supplier} />
               <DeleteSupplierButton id={supplier.id} />
             </div>
@@ -69,6 +70,8 @@ export default function SupplierSlugRoute({
           <ProductButton supplierId={id} />
         </div>
       )}
+      <Separator />
+
       <div className="w-full max-w-xl flex flex-col gap-4">
         {isLoadingProducts && (
           <Skeleton className="w-full max-w-xl h-[300px] md:h-[450px]" />

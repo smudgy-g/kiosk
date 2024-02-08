@@ -20,7 +20,7 @@ export default function DeleteSupplierButton({ id }: { id: string }) {
   const { mutate: deleteSupplier, error } = useDeleteSupplier()
   const router = useRouter()
 
-  const  handleDelete = () => {
+  const handleDelete = () => {
     try {
       deleteSupplier(id)
       toast({
@@ -28,7 +28,6 @@ export default function DeleteSupplierButton({ id }: { id: string }) {
         description: 'Supplier deleted successfully.',
       })
       return router.replace('/dashboard/supplier')
-      
     } catch (error) {
       console.log(error)
       return toast({
@@ -37,17 +36,16 @@ export default function DeleteSupplierButton({ id }: { id: string }) {
         variant: 'destructive',
       })
     }
-    
   }
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button
-          variant="outline"
+          variant="destructive"
           size="icon"
-          className="border-destructive text-destructive hover:bg-destructive hover:text-white"
+          className=""
         >
-          <TrashIcon className="h-4 w-4" />
+          <TrashIcon className="h-5 w-5" />
         </Button>
       </DialogTrigger>
       <DialogContent>
