@@ -80,6 +80,7 @@ export default function SupplierSlugRoute({
           <DataTable
             columns={productColumnsDef}
             data={products as Product[]}
+            searchPlaceholder='Search products...'
           />
         )}
       </div>

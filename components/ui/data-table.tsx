@@ -29,11 +29,13 @@ import { DataTableViewOptions } from '@/components/ui/data-table-view-options'
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[] | undefined
+  searchPlaceholder?: string
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  searchPlaceholder,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -62,16 +64,24 @@ export function DataTable<TData, TValue>({
 
     return (
       <div className="w-full flex flex-col gap-4">
-        <div className="flex items-center py-4">
-          <Input
-            placeholder="Filter products..."
-            value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-            onChange={(event) =>
-              table.getColumn('name')?.setFilterValue(event.target.value)
-            }
-            className="max-w-xs"
-          />
-          
+        <div
+          className={`flex ${
+            searchPlaceholder ? 'items-center' : 'items-end'
+          } py-4`}
+        >
+          {searchPlaceholder && (
+            <Input
+              placeholder={searchPlaceholder}
+              value={
+                (table.getColumn('name')?.getFilterValue() as string) ?? ''
+              }
+              onChange={(event) =>
+                table.getColumn('name')?.setFilterValue(event.target.value)
+              }
+              className="max-w-xs"
+            />
+          )}
+
           <DataTableViewOptions table={table} />
         </div>
         <div className="rounded-sm border bg-background">

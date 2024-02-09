@@ -2,7 +2,6 @@
 
 import { Supplier } from '@/types'
 import { createClient } from '@/utils/supabase/server'
-import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 
 export async function createSupplier(

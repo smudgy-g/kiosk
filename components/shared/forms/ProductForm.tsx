@@ -15,8 +15,6 @@ import { z } from 'zod'
 import { toast } from '../../ui/use-toast'
 import { Input } from '../../ui/input'
 import { useRouter } from 'next/navigation'
-import { useCreateSupplier, useUpdateSupplier } from '@/lib/queries/suppliers'
-import { createClient } from '@/utils/supabase/client'
 import { Product } from '@/types'
 import {
   Select,
@@ -63,7 +61,6 @@ export default function ProductForm({
   const onSubmit: SubmitHandler<z.infer<typeof productFormSchema>> = async (
     data
   ) => {
-    const supabase = createClient()
 
     if (type === 'Create') {
       if (!supplierId) {
@@ -218,10 +215,10 @@ export default function ProductForm({
         className="w-full mt-4"
         onClick={form.handleSubmit(onSubmit)}
       >
-        {!form.formState.isSubmitting && <span>{type}</span>}
         {form.formState.isSubmitting && (
           <ReloadIcon className="animate-spin w-4 h-4" />
         )}
+        <span>{type}</span>
       </Button>
     </FormProvider>
   )

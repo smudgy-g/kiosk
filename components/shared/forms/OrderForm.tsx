@@ -11,13 +11,13 @@ import {
 } from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from '@/components/ui/use-toast'
-import { createOrder } from '@/lib/supabase/api/orders'
+import { useCreateOrder } from '@/lib/queries/orders'
 import { cn } from '@/lib/utils'
 import { orderConfirmFormSchema } from '@/lib/validators'
-import { NewOrder, Order } from '@/types'
+import { NewOrder, LocalStorageOrder } from '@/types'
 import { createClient } from '@/utils/supabase/client'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CalendarIcon } from '@radix-ui/react-icons'
+import { CalendarIcon, ReloadIcon } from '@radix-ui/react-icons'
 import {
   Popover,
   PopoverTrigger,
@@ -37,6 +37,7 @@ export default function OrderForm({
   supplierId: string
 }) {
   const { orders, setOrders } = useOrderContext()
+  const { mutateAsync: createOrder } = useCreateOrder()
   const router = useRouter()
 
   const form = useForm<z.infer<typeof orderConfirmFormSchema>>({
@@ -61,15 +62,20 @@ export default function OrderForm({
       total: total,
       user_id: user.id,
     }
+
     try {
-      const newOrder = await createOrder(order, orders[supplierId])
+      const newOrder = await createOrder({
+        order: order,
+        products: orders[supplierId],
+      })
+
       if (newOrder) {
         form.reset()
         toast({
           title: 'Success!',
           description: 'Order has been sent.',
         })
-        setOrders((prevOrders: Order) => {
+        setOrders((prevOrders: LocalStorageOrder) => {
           const updatedOrders = { ...prevOrders }
           delete updatedOrders[supplierId]
           return updatedOrders
@@ -151,7 +157,12 @@ export default function OrderForm({
             </FormItem>
           )}
         />
-        <Button type="submit">Place Order</Button>
+        <Button type="submit">
+          {form.formState.isSubmitting && (
+            <ReloadIcon className="animate-spin w-4 h-4" />
+          )}
+          Place Order
+        </Button>
       </form>
     </Form>
   )

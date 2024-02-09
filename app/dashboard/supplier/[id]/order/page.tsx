@@ -5,11 +5,10 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useGetProductsBySupplier } from '@/lib/queries/products'
 import { useGetSupplierById } from '@/lib/queries/suppliers'
 import { orderColumnsDef } from '@/components/shared/tables/OrderColumnsDef'
-import { Order, Product, ProductToOrder } from '@/types'
+import { LocalStorageOrder, ProductToOrder } from '@/types'
 import { useOrderContext } from '@/components/context/OrderContext'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import UpdateSupplierButton from '@/components/shared/UpdateSupplierButton'
 import { useRouter } from 'next/navigation'
 import ConfirmOrderButton from '@/components/shared/ConfirmOrderButton'
 
@@ -39,7 +38,7 @@ export default function SupplierOrderRoute({
     useGetProductsBySupplier(id)
 
   const cancelOrder = () => {
-    setOrders((prevOrders: Order) => {
+    setOrders((prevOrders: LocalStorageOrder) => {
       const updatedOrders = { ...prevOrders }
       delete updatedOrders[id]
       return updatedOrders
@@ -72,6 +71,7 @@ export default function SupplierOrderRoute({
         <DataTable
           columns={orderColumnsDef}
           data={productsWithQuantity as ProductToOrder[]}
+          searchPlaceholder='Search products...'
         />
 
         <div className="flex gap-4 justify-center">

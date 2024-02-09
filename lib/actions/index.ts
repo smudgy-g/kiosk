@@ -1,7 +1,7 @@
 'use server'
 
-import { Order, Supplier } from "@/types";
+import { LocalStorageOrder, Supplier } from "@/types";
 
-export async function sendOrder(order: Order, supplier: Supplier) {
+export async function sendOrder(order: LocalStorageOrder, supplier: Supplier) {
 
 }

@@ -1,4 +1,4 @@
-import { Order, OrderContextType, Product, Supplier } from '@/types'
+import { LocalStorageOrder, OrderContextType, Product, Supplier } from '@/types'
 import { createContext, useContext, useState, useEffect } from 'react'
 
 
@@ -14,7 +14,7 @@ export const useOrderContext = () => {
 }
 
 export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
-  const [orders, setOrders] = useState<Order>(() => {
+  const [orders, setOrders] = useState<LocalStorageOrder>(() => {
     const storedOrders = localStorage.getItem('orders')
     return storedOrders ? JSON.parse(storedOrders) : {}
   })

@@ -5,7 +5,6 @@ import { createClient } from '@/utils/supabase/actions'
 import { cookies } from 'next/headers'
 
 export async function createOrder(order: NewOrder, products: ProductToOrder[]) {
-  console.log(order, products)
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
   try {
@@ -26,15 +25,11 @@ export async function createOrder(order: NewOrder, products: ProductToOrder[]) {
       .single()
 
     if (newOrderError) throw new Error(newOrderError.message)
-    console.log('newOrder', newOrder)
-    console.log('products', products)
     const orderProducts = products.map((product) => ({
       order_id: newOrder.id,
       product_id: product.id,
       quantity: product.quantity,
     }))
-
-    console.log('orderProducts', orderProducts)
 
     const { error: orderProductError } = await supabase
       .from('order_product')
@@ -43,6 +38,51 @@ export async function createOrder(order: NewOrder, products: ProductToOrder[]) {
     if (orderProductError) throw new Error(orderProductError.message)
 
     return newOrder
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getOrders() {
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
+
+  try {
+    const { data, error } = await supabase
+      .from('order')
+      .select(
+        `
+      *,
+      suppliers (
+        name
+      )
+    `
+      )
+      .order('created_at', { ascending: false })
+
+    if (error) throw new Error(error.message)
+
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getOrderById(id: string) {
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
+
+  try {
+    const { data: order, error } = await supabase.from('order').select(`
+      *,
+      product (
+        *
+      )
+    `)
+
+    if (error) throw new Error(error.message)
+    console.log('single order', order)
+    return order
   } catch (error) {
     console.log(error)
   }
