@@ -20,7 +20,7 @@ const SignUpPage = async () => {
     redirect('/dashboard')
   }
   return (
-    <Card className="bg-opacity-70">
+    <Card className="h-full md:h-fit">
       <CardHeader>
         <CardTitle className="text-4xl">Sign up today!</CardTitle>
         <CardDescription>

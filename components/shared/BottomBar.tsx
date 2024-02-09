@@ -16,7 +16,7 @@ const BottomBar = () => {
             key={link.label}
             className={`${
               isActive && 'text-primary'
-            } flex items-center flex-col gap-1 p-2 transition`}
+            } flex items-center flex-col gap-1 transition`}
           >
             <link.icon className="w-6 h-6" />
             <p className="text-sm leading-tight font-bold">{link.label}</p>

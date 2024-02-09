@@ -1,3 +1,4 @@
+import { useOrderContext } from '@/components/context/OrderContext'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import {
@@ -10,7 +11,11 @@ import {
 } from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from '@/components/ui/use-toast'
+import { createOrder } from '@/lib/supabase/api/orders'
 import { cn } from '@/lib/utils'
+import { orderConfirmFormSchema } from '@/lib/validators'
+import { NewOrder, Order } from '@/types'
+import { createClient } from '@/utils/supabase/client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CalendarIcon } from '@radix-ui/react-icons'
 import {
@@ -19,38 +24,72 @@ import {
   PopoverContent,
 } from '@radix-ui/react-popover'
 import { format } from 'date-fns'
+import { useRouter } from 'next/navigation'
 import React from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-export default function OrderForm() {
-  const FormSchema = z.object({
-    deliveryDate: z.date({
-      required_error: 'A date for delivery is required.',
-    }),
-    comment: z.string(),
+export default function OrderForm({
+  total,
+  supplierId,
+}: {
+  total: number
+  supplierId: string
+}) {
+  const { orders, setOrders } = useOrderContext()
+  const router = useRouter()
+
+  const form = useForm<z.infer<typeof orderConfirmFormSchema>>({
+    resolver: zodResolver(orderConfirmFormSchema),
   })
 
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-  })
+  const onSubmit: SubmitHandler<
+    z.infer<typeof orderConfirmFormSchema>
+  > = async (data) => {
+    const supabase = createClient()
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data)
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) return
+
+    const order: NewOrder = {
+      comment: data.comment,
+      delivery_date: data.deliveryDate.toDateString(),
+      supplier_id: supplierId,
+      total: total,
+      user_id: user.id,
+    }
+    try {
+      const newOrder = await createOrder(order, orders[supplierId])
+      if (newOrder) {
+        form.reset()
+        toast({
+          title: 'Success!',
+          description: 'Order has been sent.',
+        })
+        setOrders((prevOrders: Order) => {
+          const updatedOrders = { ...prevOrders }
+          delete updatedOrders[supplierId]
+          return updatedOrders
+        })
+        router.push(`/dashboard/order/${newOrder.id}`)
+      }
+    } catch (error) {
+      console.log(error)
+      toast({
+        title: 'Error',
+        description: 'Something went wrong, please try again later.',
+        variant: 'destructive',
+      })
+    }
   }
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8"
+        className="space-y-4"
       >
         <FormField
           control={form.control}
@@ -87,7 +126,7 @@ export default function OrderForm() {
                     onSelect={field.onChange}
                     disabled={(date) => date < new Date()}
                     initialFocus
-                    className='bg-popover rounded-md border'
+                    className="bg-popover rounded-md border"
                   />
                 </PopoverContent>
               </Popover>
@@ -112,7 +151,7 @@ export default function OrderForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Place Order</Button>
       </form>
     </Form>
   )

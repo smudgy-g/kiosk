@@ -75,7 +75,7 @@ export default function SupplierForm({
             title: 'Success!',
             description: 'Supplier created successfully.',
           })
-          return router.push(`supplier/${newSupplier.id}`)
+          router.push(`/dashboard/supplier/${newSupplier.id}`)
         }
       } catch (error) {
         console.log(error)

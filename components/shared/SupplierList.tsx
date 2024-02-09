@@ -15,7 +15,6 @@ export default function SupplierList() {
         [1, 2, 3, 4].map((e: number) => <SkeletonSupplierCard key={e} />)}
       {suppliers &&
         suppliers.map((supplier) => {
-          console.log(supplier, orders[supplier.id])
           const hasOrder = orders[supplier.id]
             ? orders[supplier.id].length > 0
             : false

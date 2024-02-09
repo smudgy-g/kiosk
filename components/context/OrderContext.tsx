@@ -1,25 +1,7 @@
-import { Product, Supplier } from '@/types'
-import {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect,
-} from 'react'
+import { Order, OrderContextType, Product, Supplier } from '@/types'
+import { createContext, useContext, useState, useEffect } from 'react'
 
-export interface ProductToOrder extends Product {
-  quantity: number | 0
-}
-export interface Order {
-  [supplierId: string]: ProductToOrder[]
-}
 
-export interface OrderContextType {
-  orders: Order
-  setOrders: React.Dispatch<React.SetStateAction<Order>>
-  currentSupplier: Supplier | undefined
-  setCurrentSupplier: React.Dispatch<React.SetStateAction<Supplier | undefined>>
-}
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined)
 

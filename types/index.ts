@@ -33,14 +33,24 @@ export type NewUser = {
   address: string
 }
 
-// export interface User {
-//   company: string;
-//   email: string;
-//   full_name: string;
-//   id: string;
-//   updated_at: string;
-// }
+export interface ProductToOrder extends Product {
+  quantity: number | 0
+}
+export interface Order {
+  [supplierId: string]: ProductToOrder[]
+}
 
-// export type ContextType = {
-//   user: Pick<User, 'id' | 'email' >
-// }
+export interface OrderContextType {
+  orders: Order
+  setOrders: React.Dispatch<React.SetStateAction<Order>>
+  currentSupplier: Supplier | undefined
+  setCurrentSupplier: React.Dispatch<React.SetStateAction<Supplier | undefined>>
+}
+
+export interface NewOrder {
+  user_id: string
+  supplier_id: string
+  total: number
+  comment: string
+  delivery_date: string
+}

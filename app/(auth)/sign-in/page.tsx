@@ -19,7 +19,7 @@ const SignInPage = async () => {
     redirect('/dashboard')
   }
   return (
-    <Card className="bg-opacity-70">
+    <Card className="bg-opacity-70 min-w-72">
       <CardHeader>
         <CardTitle className="text-4xl">Sign In</CardTitle>
       </CardHeader>

@@ -36,16 +36,8 @@ export default async function RootLayout({
           fontSerif.variable
         )}
       >
-        {/* <SessionProvider
-          accessToken={session?.access_token}
-          
-        > */}
-
         <Providers accessToken={session}>{children}</Providers>
         <Toaster />
-        {/* </ThemeProvider> */}
-        {/* </QueryProvider> */}
-        {/* </SessionProvider> */}
       </body>
     </html>
   )

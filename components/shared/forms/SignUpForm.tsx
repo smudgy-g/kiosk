@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/form'
 import { useCreateUser } from '@/lib/queries/user'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 
 const SignUpForm = () => {
   const { mutateAsync: createNewUser } = useCreateUser()
@@ -45,7 +46,7 @@ const SignUpForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8"
+        className="space-y-4"
       >
         <FormField
           control={form.control}
@@ -106,9 +107,10 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Delivery Address</FormLabel>
               <FormControl>
-                <Input
+                <Textarea
                   placeholder="15 Bunbury Lane, 10543, NY"
                   {...field}
+                  className="resize-none"
                 />
               </FormControl>
               <FormMessage />

@@ -26,3 +26,10 @@ export const productFormSchema = z.object({
   category: z.string(),
   product_code: z.string(),
 })
+
+export const orderConfirmFormSchema = z.object({
+  deliveryDate: z.date({
+    required_error: 'A date for delivery is required.',
+  }),
+  comment: z.string(),
+})
