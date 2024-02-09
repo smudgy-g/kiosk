@@ -212,7 +212,7 @@ export default function ProductForm({
       </form>
       <Button
         disabled={form.formState.isSubmitting}
-        className="w-full mt-4"
+        className="mt-4"
         onClick={form.handleSubmit(onSubmit)}
       >
         {form.formState.isSubmitting && (

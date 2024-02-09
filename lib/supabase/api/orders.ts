@@ -1,10 +1,13 @@
 'use server'
 
-import { NewOrder, ProductToOrder } from '@/types'
+import { NewOrder, ProductWithQuantity } from '@/types'
 import { createClient } from '@/utils/supabase/actions'
 import { cookies } from 'next/headers'
 
-export async function createOrder(order: NewOrder, products: ProductToOrder[]) {
+export async function createOrder(
+  order: NewOrder,
+  products: ProductWithQuantity[]
+) {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
   try {
@@ -73,12 +76,18 @@ export async function getOrderById(id: string) {
   const supabase = createClient(cookieStore)
 
   try {
-    const { data: order, error } = await supabase.from('order').select(`
+    const { data: order, error } = await supabase
+      .from('order')
+      .select(
+        `
       *,
-      product (
-        *
+      suppliers (
+        name
       )
-    `)
+    `
+      )
+      .eq('id', id)
+      .single()
 
     if (error) throw new Error(error.message)
     console.log('single order', order)

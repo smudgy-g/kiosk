@@ -8,6 +8,7 @@ export enum QUERY_KEYS {
 
   // PRODUCT KEYS
   GET_PRODUCTS_BY_SUPPLIER_ID = "getProductsBySupplier",
+  GET_PRODUCTS_BY_ORDER_ID = "getProductsByOrder",
   
   
   // ORDER KEYS

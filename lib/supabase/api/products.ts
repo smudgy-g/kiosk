@@ -52,6 +52,27 @@ export async function getProductsBySupplier(id: string) {
     console.log(error)
   }
 }
+export async function getProductsByOrder(id: string) {
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
+  try {
+    const { data, error } = await supabase
+      .from('order_product')
+      .select(`
+      quantity,
+      products (
+        *
+      )
+      `)
+      .eq('order_id', id)
+
+    if (error) throw new Error(error.message)
+    console.log('getProductsByOrder', data)
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 export async function updateProductDetails({
   id,

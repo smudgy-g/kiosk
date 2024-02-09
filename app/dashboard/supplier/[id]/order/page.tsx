@@ -4,8 +4,8 @@ import { DataTable } from '@/components/ui/data-table'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useGetProductsBySupplier } from '@/lib/queries/products'
 import { useGetSupplierById } from '@/lib/queries/suppliers'
-import { orderColumnsDef } from '@/components/shared/tables/OrderColumnsDef'
-import { LocalStorageOrder, ProductToOrder } from '@/types'
+import { orderColumnsDef } from '@/components/shared/tables/OrderingColumnsDef'
+import { LocalStorageOrder, ProductWithQuantity } from '@/types'
 import { useOrderContext } from '@/components/context/OrderContext'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
@@ -70,7 +70,7 @@ export default function SupplierOrderRoute({
 
         <DataTable
           columns={orderColumnsDef}
-          data={productsWithQuantity as ProductToOrder[]}
+          data={productsWithQuantity as ProductWithQuantity[]}
           searchPlaceholder='Search products...'
         />
 

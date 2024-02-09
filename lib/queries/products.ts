@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   createProduct,
   deleteProduct,
+  getProductsByOrder,
   getProductsBySupplier,
   updateProductDetails,
 } from '../supabase/api/products'
@@ -31,6 +32,13 @@ export function useGetProductsBySupplier(supplierId: string) {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_PRODUCTS_BY_SUPPLIER_ID, supplierId],
     queryFn: () => getProductsBySupplier(supplierId),
+  })
+}
+
+export function useGetProductsByOrder(orderId: string) {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_PRODUCTS_BY_ORDER_ID, orderId],
+    queryFn: () => getProductsByOrder(orderId),
   })
 }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { NewOrder, ProductToOrder } from '@/types'
+import { NewOrder, ProductWithQuantity } from '@/types'
 import { createOrder, getOrderById, getOrders } from '../supabase/api/orders'
 import { QUERY_KEYS } from './queryKeys'
 
@@ -28,7 +28,7 @@ export function useCreateOrder() {
       products,
     }: {
       order: NewOrder
-      products: ProductToOrder[]
+      products: ProductWithQuantity[]
     }) => createOrder(order, products),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_ORDERS] })

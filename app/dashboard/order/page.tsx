@@ -1,6 +1,6 @@
 'use client'
 
-import { ordersColumnsDef } from '@/components/shared/tables/OrdersDataColumnsDef'
+import { ordersColumnsDef } from '@/components/shared/tables/OrdersColumnsDef'
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
 import { Separator } from '@/components/ui/separator'

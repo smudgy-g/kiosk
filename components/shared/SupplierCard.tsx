@@ -22,20 +22,23 @@ export default function SupplierCard({
 }) {
   const { contact_name = '', email = '', name = '', id } = data
   return (
-    <Card className="w-full md:min-w-[195px] max-w-72 flex flex-col justify-between">
+    <Card className="w-full md:min-w-[195px] max-w-56 flex flex-col justify-between text-center">
       <CardHeader>
         <CardTitle className="text-xl tracking-tight leading-6">
           {name}
         </CardTitle>
         <CardDescription>
-          {hasOrder && <Badge className='bg-[hsl(var(--highlight))]'>Order in progress</Badge>}
+          {hasOrder && (
+            <Badge className="bg-[hsl(var(--highlight))]">
+              Order in progress
+            </Badge>
+          )}
         </CardDescription>
       </CardHeader>
       <CardFooter className="flex flex-col gap-2">
         <Button
           variant="outline"
           size="lg"
-          className="w-full"
           asChild
         >
           <Link href={`/dashboard/supplier/${id}`}>
@@ -45,7 +48,6 @@ export default function SupplierCard({
         </Button>
         <Button
           size="lg"
-          className="w-full"
           asChild
         >
           <Link href={`/dashboard/supplier/${id}/order`}>

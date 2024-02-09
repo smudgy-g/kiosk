@@ -3,7 +3,7 @@
 import DeleteSupplierButton from '@/components/shared/DeleteSupplierButton'
 import ProductButton from '@/components/shared/ProductButton'
 import UpdateSupplierButton from '@/components/shared/UpdateSupplierButton'
-import { productColumnsDef } from '@/components/shared/tables/ProductColumnsDef'
+import { productColumnsDef } from '@/components/shared/tables/ProductsColumnsActionsDef'
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui/data-table'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -32,7 +32,7 @@ export default function SupplierSlugRoute({
     useGetProductsBySupplier(id)
 
   return (
-    <div className="flex flex-col items-center w-full px-2 md:px-8 py-8 lg:px-12 gap-4">
+    <div className="flex flex-col items-center w-full px-2 md:px-8 lg:px-12 py-8 gap-4">
       {isLoadingSupplier && (
         <Skeleton className="w-full max-w-xl h-[300px] md:h-[250px]" />
       )}
@@ -72,9 +72,9 @@ export default function SupplierSlugRoute({
       )}
       <Separator />
 
-      <div className="w-full max-w-xl flex flex-col gap-4">
+      <div className="w-full flex flex-col gap-4">
         {isLoadingProducts && (
-          <Skeleton className="w-full max-w-xl h-[300px] md:h-[450px]" />
+          <Skeleton className="w-full h-[300px] md:h-[450px]" />
         )}
         {products && (
           <DataTable

@@ -23,7 +23,7 @@ export const ordersColumnsDef: ColumnDef<OrderWithSupplierName>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="supplier"
+        title="Supplier"
       />
     ),
   },
@@ -48,7 +48,7 @@ export const ordersColumnsDef: ColumnDef<OrderWithSupplierName>[] = [
       const amount = parseFloat(row.getValue('total'))
       const formatted = new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'EUR',
       }).format(amount)
 
       return <div className="text-right font-medium">{formatted}</div>

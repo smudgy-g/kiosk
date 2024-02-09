@@ -47,12 +47,15 @@ export type NewUser = {
   address: string
 }
 
-export interface ProductToOrder extends Product {
+export interface ProductWithQuantity extends Product {
   quantity: number | 0
+}
+export interface OrderProduct extends ProductWithQuantity {
+  total: number | 0
 }
 
 export type LocalStorageOrder ={
-  [supplierId: string]: ProductToOrder[]
+  [supplierId: string]: ProductWithQuantity[]
 }
 
 export type OrderContextType = {

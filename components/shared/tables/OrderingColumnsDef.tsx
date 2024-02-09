@@ -39,7 +39,7 @@ export const orderColumnsDef: ColumnDef<Product>[] = [
       const amount = parseFloat(row.getValue('price'))
       const formatted = new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'EUR',
       }).format(amount)
 
       return <div className="text-right font-medium">{formatted}</div>
