@@ -61,7 +61,6 @@ export default function ProductForm({
   const onSubmit: SubmitHandler<z.infer<typeof productFormSchema>> = async (
     data
   ) => {
-
     if (type === 'Create') {
       if (!supplierId) {
         return toast({
@@ -216,7 +215,7 @@ export default function ProductForm({
         onClick={form.handleSubmit(onSubmit)}
       >
         {form.formState.isSubmitting && (
-          <ReloadIcon className="animate-spin w-4 h-4" />
+          <ReloadIcon className="animate-spin w-4 h-4 mr-3" />
         )}
         <span>{type}</span>
       </Button>

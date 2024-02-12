@@ -1,7 +1,5 @@
-import { LocalStorageOrder, OrderContextType, Product, Supplier } from '@/types'
+import { LocalStorageOrder, OrderContextType, Supplier } from '@/types'
 import { createContext, useContext, useState, useEffect } from 'react'
-
-
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined)
 

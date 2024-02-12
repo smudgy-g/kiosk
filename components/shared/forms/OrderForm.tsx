@@ -159,7 +159,7 @@ export default function OrderForm({
         />
         <Button type="submit">
           {form.formState.isSubmitting && (
-            <ReloadIcon className="animate-spin w-4 h-4" />
+            <ReloadIcon className="animate-spin w-4 h-4 mr-3" />
           )}
           Place Order
         </Button>

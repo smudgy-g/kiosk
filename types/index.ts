@@ -32,7 +32,6 @@ export type Order = {
   delivery_date: string
 }
 
-
 export interface OrderWithSupplierName extends Order {
   supplier: string
 }
@@ -54,7 +53,7 @@ export interface OrderProduct extends ProductWithQuantity {
   total: number | 0
 }
 
-export type LocalStorageOrder ={
+export type LocalStorageOrder = {
   [supplierId: string]: ProductWithQuantity[]
 }
 
@@ -65,10 +64,17 @@ export type OrderContextType = {
   setCurrentSupplier: React.Dispatch<React.SetStateAction<Supplier | undefined>>
 }
 
-export type NewOrder ={
+export type NewOrder = {
   user_id: string
   supplier_id: string
   total: number
   comment: string
   delivery_date: string
+}
+
+export type UserProfile = {
+  full_name: string | null
+  company: string | null
+  email: string | null
+  address: string | null
 }

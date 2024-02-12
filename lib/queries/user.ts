@@ -1,24 +1,41 @@
+import { NewUser, UserProfile } from '@/types'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  createUserAccount,
+  getProfile,
+  signInUser,
+  updateProfile,
+} from '../supabase/api/user'
+import { QUERY_KEYS } from './queryKeys'
 
-import { NewUser } from '@/types'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { createUserAccount, getUser, signInUser } from '../supabase/api/user'
-
-export default function useGetUser() {
+export function useGetProfile() {
   return useQuery({
-    queryKey: ['user'],
-    queryFn: getUser,
+    queryKey: [QUERY_KEYS.GET_PROFILE],
+    queryFn: () => getProfile(),
   })
 }
 
-export function useCreateUser(){
+export function useUpdateProfile() {
+  const queryClient = useQueryClient()
+
   return useMutation({
-    mutationFn: (user: NewUser) => createUserAccount(user)
+    mutationFn: (profile: UserProfile) => updateProfile(profile),
+    onSuccess: (updatedProfile) => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_PROFILE],
+      })
+    },
   })
 }
 
-export function useSignInUser(){
+export function useCreateUser() {
   return useMutation({
-    mutationFn: (user: { email: string; password: string }) =>
-      signInUser(user),
+    mutationFn: (user: NewUser) => createUserAccount(user),
+  })
+}
+
+export function useSignInUser() {
+  return useMutation({
+    mutationFn: (user: { email: string; password: string }) => signInUser(user),
   })
 }

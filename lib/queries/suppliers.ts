@@ -39,6 +39,7 @@ export function useCreateSupplier() {
     },
   })
 }
+
 export function useUpdateSupplier() {
   const queryClient = useQueryClient()
 

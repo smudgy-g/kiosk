@@ -67,7 +67,6 @@ export async function getProductsByOrder(id: string) {
       .eq('order_id', id)
 
     if (error) throw new Error(error.message)
-    console.log('getProductsByOrder', data)
     return data
   } catch (error) {
     console.log(error)

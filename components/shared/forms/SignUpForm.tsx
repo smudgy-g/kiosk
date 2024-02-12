@@ -1,6 +1,6 @@
 'use client'
 
-import { signUpFormSchema } from '@/lib/validators'
+import { profileFormSchema } from '@/lib/validators'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,8 +19,8 @@ import { Textarea } from '@/components/ui/textarea'
 
 const SignUpForm = () => {
   const { mutateAsync: createNewUser } = useCreateUser()
-  const form = useForm<z.infer<typeof signUpFormSchema>>({
-    resolver: zodResolver(signUpFormSchema),
+  const form = useForm<z.infer<typeof profileFormSchema>>({
+    resolver: zodResolver(profileFormSchema),
     defaultValues: {
       name: '',
       company: '',
@@ -31,7 +30,7 @@ const SignUpForm = () => {
     },
   })
 
-  const onSubmit: SubmitHandler<z.infer<typeof signUpFormSchema>> = (data) => {
+  const onSubmit: SubmitHandler<z.infer<typeof profileFormSchema>> = (data) => {
     form.reset()
     createNewUser({
       company: data.company,
@@ -56,7 +55,6 @@ const SignUpForm = () => {
               <FormLabel>Full name</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="eg. Fanny Arbuckle"
                   {...field}
                   required
                 />
@@ -91,8 +89,8 @@ const SignUpForm = () => {
               <FormLabel>Company</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="eg. Shenanigans"
                   {...field}
+                  required
                 />
               </FormControl>
 
@@ -108,9 +106,9 @@ const SignUpForm = () => {
               <FormLabel>Delivery Address</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="15 Bunbury Lane, 10543, NY"
                   {...field}
                   className="resize-none"
+                  required
                 />
               </FormControl>
               <FormMessage />
@@ -125,7 +123,6 @@ const SignUpForm = () => {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Password"
                   type="password"
                   {...field}
                   required

@@ -1,11 +1,8 @@
 'use server'
 
-import { NewUser } from '@/types'
-import { Database } from '@/types/supabase'
-// import useSupabaseBrowser from '@/utils/supabase/client'
+import { NewUser, UserProfile } from '@/types'
 import { createClient } from '@/utils/supabase/actions'
 import { revalidatePath } from 'next/cache'
-// import { createServerActionClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -14,7 +11,7 @@ export async function createUserAccount({
   password,
   name,
   company,
-  address
+  address,
 }: NewUser) {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
@@ -26,7 +23,7 @@ export async function createUserAccount({
         data: {
           full_name: name,
           company: company,
-          address: address
+          address: address,
         },
       },
     })
@@ -70,10 +67,83 @@ export async function getUser() {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
   try {
-    const { data, error } = await supabase.auth.getUser()
-    if (error) {
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser()
+    if (error || !user) {
       redirect('/sign-in')
     }
+
+    return user
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getProfile() {
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
+  try {
+    const {
+      data: { user },
+      error: getUserError,
+    } = await supabase.auth.getUser()
+    if (getUserError || !user) {
+      redirect('/sign-in')
+    }
+
+    const { data: profile, error: getProfileError } = await supabase
+      .from('profiles')
+      .select(`full_name, company, address`)
+      .eq('id', user.id)
+      .single()
+
+    if (getProfileError) throw new Error(getProfileError.message)
+
+    const profileData = {
+      email: user.email,
+      full_name: profile.full_name,
+      company: profile.company,
+      address: profile.address,
+    }
+
+    return JSON.parse(JSON.stringify(profileData))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function updateProfile({
+  full_name,
+  address,
+  company,
+}: UserProfile) {
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
+  try {
+    const {
+      data: { user },
+      error: getUserError,
+    } = await supabase.auth.getUser()
+
+    if (getUserError || !user) {
+      redirect('/sign-in')
+    }
+
+    const { data, error: updateError } = await supabase
+      .from('profiles')
+      .update({
+        full_name,
+        company,
+        address,
+      })
+      .eq('id', user.id)
+      .select()
+      .single()
+
+    if (updateError) throw new Error(updateError.message)
+
     return data
   } catch (error) {
     console.log(error)

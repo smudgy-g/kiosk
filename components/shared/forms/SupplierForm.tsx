@@ -188,7 +188,7 @@ export default function SupplierForm({
         onClick={form.handleSubmit(onSubmit)}
       >
         {form.formState.isSubmitting && (
-          <ReloadIcon className="animate-spin w-4 h-4" />
+          <ReloadIcon className="animate-spin w-4 h-4 mr-3" />
         )}
         <span>{type}</span>
       </Button>

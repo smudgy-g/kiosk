@@ -1,4 +1,5 @@
 'use client'
+
 import { ThemeProvider } from '@/components/context/ThemeProvider'
 import { OrderProvider } from './OrderContext'
 import QueryProvider from './QueryProvider'
@@ -15,7 +16,7 @@ export function Providers({
       <QueryProvider>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

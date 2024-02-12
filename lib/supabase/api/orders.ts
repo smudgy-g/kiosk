@@ -90,7 +90,6 @@ export async function getOrderById(id: string) {
       .single()
 
     if (error) throw new Error(error.message)
-    console.log('single order', order)
     return order
   } catch (error) {
     console.log(error)
