@@ -1,12 +1,11 @@
 'use client'
 
-import {
-  averageOrdersPerMonth,
-  lastMonthOrdersByCategory,
-} from '@/lib/supabase/api/orders'
+import { averageOrdersPerMonth } from '@/lib/supabase/api/orders'
 import DataChart from './DataChart'
-import { Card, CardContent } from '@/components/ui/card'
-import { months } from '@/lib/utils'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { MONTHS } from '@/constants'
+import { ChartConfiguration } from 'chart.js'
+import { cn } from '@/lib/utils'
 
 export type RawData = {
   average: number
@@ -15,42 +14,46 @@ export type RawData = {
   total: number
   year: string
 }
-export default async function OrdersPerMonth() {
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ]
-
+export default async function OrdersPerMonth({
+  classesWrapper,
+}: {
+  classesWrapper?: string
+}) {
   const res = await averageOrdersPerMonth()
-  console.log(res)
-  const rawData = (res as RawData[]) || {}
-  const labels = rawData.map((row) => months[parseInt(row.month) - 1])
+  const rawData = res as RawData[]
+  const labels = rawData.map((row) => MONTHS[parseInt(row.month) - 1])
   const totals = rawData.map((row) => row.total)
   const averages = rawData.map((row) => row.average)
 
-  // const options = {
-  //   responsive: true,
-  //   plugins: {
-  //     legend: {
-  //       position: 'left',
-  //     },
-  //     title: {
-  //       display: true,
-  //       text: 'Chart.js Combined Line/Bar Chart'
-  //     }
-  //   }
-  // }
-  // const labels = months({count: 12});
+  const options: ChartConfiguration['options'] = {
+    responsive: true,
+    scales: {
+      y: {
+        ticks: {
+          callback: function (value) {
+            if (+value >= 1000) {
+              return (
+                '€' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              )
+            } else {
+              return '€' + value
+            }
+          },
+        },
+        grid: {
+          color: '#d3d3d3',
+          drawTicks: false,
+          lineWidth: 1,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+    },
+  }
+
   if (rawData) {
     const data = {
       labels: labels,
@@ -58,28 +61,43 @@ export default async function OrdersPerMonth() {
         {
           label: 'Totals /month',
           data: totals,
+          backgroundColor: [
+            // 'rgba(255, 99, 132, 0.2)',
+            // 'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            // 'rgba(75, 192, 192, 0.2)',
+            // 'rgba(153, 102, 255, 0.2)',
+            // 'rgba(255, 159, 64, 0.2)',
+          ],
+          borderColor: [
+            // 'rgba(255, 99, 132, 1)',
+            // 'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            // 'rgba(75, 192, 192, 1)',
+            // 'rgba(153, 102, 255, 1)',
+            // 'rgba(255, 159, 64, 1)',
+          ],
+          borderWidth: 1,
           order: 1,
         },
         {
           label: 'Averages /month',
           data: averages,
-          // borderColor: ,
-          // backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
           type: 'line',
+          borderColor: 'rgb(75, 192, 192)',
           order: 0,
         },
       ],
     }
     return (
-      <Card>
-        <CardContent className="w-[calc(100%-0.1rem)] h-full">
-          <DataChart
-            type="bar"
-            data={data}
-            // options={options}
-          />
-        </CardContent>
-      </Card>
+      <div className={cn(classesWrapper)}>
+        <h3 className="text-center text-xl">Orders Per Month</h3>
+        <DataChart
+          type="bar"
+          data={data}
+          options={options}
+        />
+      </div>
     )
   }
 }

@@ -213,6 +213,14 @@ export type Database = {
           average: number
         }[]
       }
+      current_monthly_order: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          total_current_month_orders: number
+          total_previous_month_orders: number
+          difference: number
+        }[]
+      }
       product_category_month: {
         Args: {
           month: string

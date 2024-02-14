@@ -1,15 +1,11 @@
 'use client'
 
-import { months } from '@/lib/utils'
 import { Chart, registerables, ChartConfiguration } from 'chart.js'
 import React, { useEffect, useRef } from 'react'
-import { darkOptions } from './Themes'
 
 function DataChart(props: ChartConfiguration) {
   const { data, options } = props
   const chartRef = useRef<HTMLCanvasElement>(null)
-
-  // const labels = months({ count: 7 })
 
   useEffect(() => {
     if (chartRef.current) {
@@ -17,7 +13,6 @@ function DataChart(props: ChartConfiguration) {
         ...props,
         options: {
           ...options,
-          ...darkOptions,
         },
       })
       return () => {

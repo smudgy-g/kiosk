@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <TopBar />
       <SideBar />
 
-      <section className="flex flex-1 px-2 overflow-y-scroll">
+      <section className="flex flex-1 px-2 overflow-y-scroll mb-8">
         <Suspense fallback={<Loading />}>{children}</Suspense>
       </section>
 

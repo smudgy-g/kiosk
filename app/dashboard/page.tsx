@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import ProductsOrderedByCategory from '@/components/shared/charts/ProductsOrderedByCategory'
 import { Suspense } from 'react'
 import OrdersPerMonth from '@/components/shared/charts/OrdersPerMonth'
+import CurrentMonthOrdersComparison from '@/components/shared/charts/CurrentMonthOrdersComparison'
 
 export default async function DashboardPage() {
   const cookieStore = cookies()
@@ -19,37 +20,24 @@ export default async function DashboardPage() {
 
   return (
     <div className="flex flex-col items-center w-full px-2 md:px-8 lg:px-12 py-8 gap-4">
-      <div className="w-full max-w-xl flex flex-col gap-4">
-        <div className="flex w-full justify-between items-start">
-          <h2 className="text-primary text-4xl font-bold">Dashboard</h2>
-        </div>
+      <div className="w-full text-center mb-8">
+        <h2 className="text-4xl font-bold">Dashboard</h2>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 w-full">
-        <Card>
-          <CardContent>
-            <h3 className="text-3xl">Average /month</h3>
-            <p>€450.65</p>
-            <h3 className="text-3xl">Last Month</h3>
-            <p>€400.65</p>
-          </CardContent>
-        </Card>
-        <Suspense
-          fallback={<Skeleton className="w-auto h-[250px] bg-green-300" />}
-        >
-          <ProductsOrderedByCategory />
+      <div className="flex flex-wrap justify-evenly gap-6">
+        <Suspense fallback={<Skeleton className="w-[200px] h-[175px]" />}>
+          <CurrentMonthOrdersComparison classesWrapper='h-[200px]'/>
         </Suspense>
-        <div className="w-auto col-span-3">
-          <Suspense
-            fallback={<Skeleton className="w-auto h-[400px] bg-green-300" />}
-          >
-            <OrdersPerMonth />
-          </Suspense>
-        </div>
-
-        {/* graph */}
-        {/* <Skeleton className="w-auto h-[400px] bg-red-200 col-span-2" />
-        <Skeleton className="w-auto h-[250px] bg-red-200 col-span-1" /> */}
+        <Suspense
+          fallback={<Skeleton className="w-[300px] h-[250px]" />}
+        >
+          <ProductsOrderedByCategory classesWrapper="min-w-[300px]" />
+        </Suspense>
+        <Suspense
+          fallback={<Skeleton className="max-w-xl h-[400px] col-span-3" />}
+        >
+          <OrdersPerMonth classesWrapper="relative h-auto max-h-[500px] w-[calc(100%-1rem)]" />
+        </Suspense>
       </div>
     </div>
   )

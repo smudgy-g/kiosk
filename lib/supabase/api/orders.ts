@@ -104,7 +104,8 @@ export async function lastMonthOrdersByCategory(month: string) {
     const { data, error } = await supabase
       .rpc('product_category_month', { month: month })
       .select('*')
-    console.log(data)
+
+    if (error) throw new Error(error.message)
     return data
   } catch (error) {
     console.log(error)
@@ -119,7 +120,25 @@ export async function averageOrdersPerMonth() {
     const { data, error } = await supabase
       .rpc('average_orders_per_month')
       .select('*')
-    console.log(data)
+
+    if (error) throw new Error(error.message)
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function currentMonthOrdersComparison() {
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
+
+  try {
+    const { data, error } = await supabase
+      .rpc('current_monthly_order')
+      .select('*')
+      .single()
+
+    if (error) throw new Error(error.message)
     return data
   } catch (error) {
     console.log(error)

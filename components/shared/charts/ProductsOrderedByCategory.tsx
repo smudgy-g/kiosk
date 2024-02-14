@@ -2,7 +2,9 @@
 
 import { lastMonthOrdersByCategory } from '@/lib/supabase/api/orders'
 import DataChart from './DataChart'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { ChartConfiguration } from 'chart.js'
+import { cn } from '@/lib/utils'
 
 export type RawData = {
   total_products_ordered: number
@@ -11,11 +13,32 @@ export type RawData = {
   total_cost: number
   percentage_ordered: number
 }
-export default async function ProductsOrderedByCategory() {
+export default async function ProductsOrderedByCategory({
+  classesWrapper,
+}: {
+  classesWrapper?: string
+}) {
   const res = await lastMonthOrdersByCategory('2024-02')
-  const rawData = (res as RawData[]) || {}
+  const rawData = res as RawData[]
   const labels = rawData.map((row) => row.category)
   const chartData = rawData.map((row) => row.total_cost)
+
+  const options: ChartConfiguration['options'] = {
+    responsive: true,
+    scales: {
+      y: {
+        display: false,
+      },
+      x: {
+        display: false,
+      },
+    },
+    plugins: {
+      legend: {
+        position: 'right',
+      },
+    },
+  }
 
   if (rawData) {
     const data = {
@@ -45,14 +68,18 @@ export default async function ProductsOrderedByCategory() {
       ],
     }
     return (
-      <Card>
-        <CardContent>
+      <div className={cn(classesWrapper)}>
+          <h3 className="text-xl">
+            Orders by Category
+          </h3>
+        <div className="relative h-auto max-h-[250px] w-[calc(100%-1rem)]">
           <DataChart
             type="doughnut"
             data={data}
+            options={options}
           />
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     )
   }
 }
