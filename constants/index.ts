@@ -1,13 +1,17 @@
 import { NavLink } from '@/types'
-import { PersonIcon, ReaderIcon, RocketIcon } from '@radix-ui/react-icons'
+import {
+  PersonIcon,
+  ReaderIcon,
+  RocketIcon,
+  MixIcon,
+} from '@radix-ui/react-icons'
 
 export const NAV_LINKS: NavLink[] = [
   {
-    icon: PersonIcon,
-    route: '/dashboard/profile',
-    label: 'Profile',
+    icon: MixIcon,
+    route: '/dashboard',
+    label: 'Dashboard',
   },
-
   {
     icon: ReaderIcon,
     route: '/dashboard/order',
@@ -18,11 +22,11 @@ export const NAV_LINKS: NavLink[] = [
     route: '/dashboard/supplier',
     label: 'Suppliers',
   },
-  // {
-  //   icon: <RocketIcon />,
-  //   route: '/dashboard/product',
-  //   label: 'Products',
-  // },
+  {
+    icon: PersonIcon,
+    route: '/dashboard/profile',
+    label: 'Profile',
+  },
 ]
 
 export const PRODUCT_TYPES = [
@@ -36,4 +40,19 @@ export const PRODUCT_TYPES = [
   'Spirit',
   'Non-Alcoholic',
   'Other',
+]
+
+export const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ]

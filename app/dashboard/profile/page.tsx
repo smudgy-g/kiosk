@@ -9,7 +9,11 @@ import { EnvelopeClosedIcon, HomeIcon, PersonIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 
 export default function ProfilePage() {
-  const { data: profile, isLoading: isLoadingProfile, isError } = useGetProfile()
+  const {
+    data: profile,
+    isLoading: isLoadingProfile,
+    isError,
+  } = useGetProfile()
   const { address = '', company = '', email = '', full_name } = profile || {}
 
   return (
@@ -44,20 +48,6 @@ export default function ProfilePage() {
           </div>
         </div>
       )}
-      <Separator />
-
-      {/* <div className="w-full flex flex-col gap-4">
-        {isLoadingProducts && (
-          <Skeleton className="w-full h-[300px] md:h-[450px]" />
-        )}
-        {products && (
-          <DataTable
-            columns={productColumnsDef}
-            data={products as Product[]}
-            searchPlaceholder="Search products..."
-          />
-        )}
-      </div> */}
     </div>
   )
 }

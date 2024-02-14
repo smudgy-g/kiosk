@@ -14,7 +14,7 @@ export async function createOrder(
     const { comment, delivery_date, supplier_id, user_id, total } = order
 
     const { data: newOrder, error: newOrderError } = await supabase
-      .from('order')
+      .from('orders')
       .insert([
         {
           comment: comment,
@@ -52,7 +52,7 @@ export async function getOrders() {
 
   try {
     const { data, error } = await supabase
-      .from('order')
+      .from('orders')
       .select(
         `
       *,
@@ -77,7 +77,7 @@ export async function getOrderById(id: string) {
 
   try {
     const { data: order, error } = await supabase
-      .from('order')
+      .from('orders')
       .select(
         `
       *,
@@ -91,6 +91,36 @@ export async function getOrderById(id: string) {
 
     if (error) throw new Error(error.message)
     return order
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function lastMonthOrdersByCategory(month: string) {
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
+
+  try {
+    const { data, error } = await supabase
+      .rpc('product_category_month', { month: month })
+      .select('*')
+    console.log(data)
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function averageOrdersPerMonth() {
+  const cookieStore = cookies()
+  const supabase = createClient(cookieStore)
+
+  try {
+    const { data, error } = await supabase
+      .rpc('average_orders_per_month')
+      .select('*')
+    console.log(data)
+    return data
   } catch (error) {
     console.log(error)
   }

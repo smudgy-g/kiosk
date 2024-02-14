@@ -10,7 +10,7 @@ export default function NavLinks() {
   return (
     <ul className="flex flex-col space-y-6">
           {NAV_LINKS.map((link) => {
-            const isActive = pathname.startsWith(link.route)
+            const isActive = pathname === link.route
             return (
               <li
                 key={link.label}

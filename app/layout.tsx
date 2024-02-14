@@ -5,16 +5,13 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { cn } from '@/lib/utils'
 
-import QueryProvider from '@/components/context/QueryProvider'
-import SessionProvider from '@/components/context/SessionContext'
 import { fontSans, fontSerif } from '@/components/shared/Font'
 import { Providers } from '@/components/context/Providers'
-// import { ThemeProvider } from '@/components/context/ThemeProvider'
 
 export const metadata: Metadata = {
-  title: 'Kiosk',
+  title: 'Kyosk',
   description:
-    'Consolidate your ordering needs into one convenient platform saving you time and effort. Whether you need to restock ingredients, beverages, or other supplies, kiosk has got you covered.',
+    'Consolidate your ordering needs into one convenient platform saving you time and effort. Whether you need to restock ingredients, beverages, or other supplies, kyosk has got you covered.',
 }
 
 export default async function RootLayout({

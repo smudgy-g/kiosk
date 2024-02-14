@@ -22,9 +22,8 @@ export default function UpdateProfileButton({ data }: { data: UserProfile }) {
       onOpenChange={setOpen}
     >
       <DialogTrigger asChild>
-        <Button variant={'secondary'}>
+        <Button variant='icon'>
           <Pencil2Icon className="h-5 w-5 mr-3" />
-          Update Details
         </Button>
       </DialogTrigger>
       <DialogContent>

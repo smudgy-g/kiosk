@@ -8,11 +8,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   
 
   return (
-    <div className="w-full flex flex-col md:flex-row">
+    <div className="w-full flex flex-col md:flex-row overflow-hidden">
       <TopBar />
       <SideBar />
 
-      <section className="flex flex-1 px-2">
+      <section className="flex flex-1 px-2 overflow-y-scroll">
         <Suspense fallback={<Loading />}>{children}</Suspense>
       </section>
 

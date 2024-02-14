@@ -9,7 +9,43 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      order: {
+      order_product: {
+        Row: {
+          id: number
+          order_id: string | null
+          product_id: string | null
+          quantity: number | null
+        }
+        Insert: {
+          id?: number
+          order_id?: string | null
+          product_id?: string | null
+          quantity?: number | null
+        }
+        Update: {
+          id?: number
+          order_id?: string | null
+          product_id?: string | null
+          quantity?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_product_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_product_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      orders: {
         Row: {
           comment: string | null
           created_at: string
@@ -50,42 +86,6 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
-      order_product: {
-        Row: {
-          id: number
-          order_id: string | null
-          product_id: string | null
-          quantity: number | null
-        }
-        Insert: {
-          id?: number
-          order_id?: string | null
-          product_id?: string | null
-          quantity?: number | null
-        }
-        Update: {
-          id?: number
-          order_id?: string | null
-          product_id?: string | null
-          quantity?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "order_product_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "order"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "order_product_product_id_fkey"
-            columns: ["product_id"]
-            isOneToOne: false
-            referencedRelation: "products"
             referencedColumns: ["id"]
           }
         ]
@@ -203,7 +203,28 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      average_orders_per_month: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          year: string
+          month: string
+          order_count: number
+          total: number
+          average: number
+        }[]
+      }
+      product_category_month: {
+        Args: {
+          month: string
+        }
+        Returns: {
+          total_products_ordered: number
+          category: string
+          total_category_products: number
+          total_cost: number
+          percentage_ordered: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
