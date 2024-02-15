@@ -2,9 +2,8 @@
 
 import { averageOrdersPerMonth } from '@/lib/supabase/api/orders'
 import DataChart from './DataChart'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { MONTHS } from '@/constants'
-import { ChartConfiguration } from 'chart.js'
+import { ChartConfiguration, ChartType } from 'chart.js'
 import { cn } from '@/lib/utils'
 
 export type RawData = {
@@ -83,7 +82,7 @@ export default async function OrdersPerMonth({
         {
           label: 'Averages /month',
           data: averages,
-          type: 'line',
+          type: 'line' as ChartType,
           borderColor: 'rgb(75, 192, 192)',
           order: 0,
         },

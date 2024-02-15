@@ -36,7 +36,7 @@ export default function OrderForm({
   total: number
   supplierId: string
 }) {
-  const { orders, setOrders } = useOrderContext()
+  const { orders, setOrders, currentSupplier } = useOrderContext()
   const { mutateAsync: createOrder } = useCreateOrder()
   const router = useRouter()
 
@@ -63,25 +63,42 @@ export default function OrderForm({
       user_id: user.id,
     }
 
+    const products = orders[supplierId]
     try {
-      const newOrder = await createOrder({
-        order: order,
-        products: orders[supplierId],
+      const res = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user,
+          order,
+          products,
+          supplier: currentSupplier,
+        }),
       })
 
-      if (newOrder) {
-        form.reset()
-        toast({
-          title: 'Success!',
-          description: 'Order has been sent.',
-        })
-        setOrders((prevOrders: LocalStorageOrder) => {
-          const updatedOrders = { ...prevOrders }
-          delete updatedOrders[supplierId]
-          return updatedOrders
-        })
-        router.push(`/dashboard/order/${newOrder.id}`)
-      }
+      if (!res.ok) throw new Error('Error sending email.')
+
+      const newOrder = await createOrder({
+        order: order,
+        products: products,
+      })
+
+      if (!newOrder) throw new Error('Error adding order to database.')
+      
+      form.reset()
+      
+      setOrders((prevOrders: LocalStorageOrder) => {
+        const updatedOrders = { ...prevOrders }
+        delete updatedOrders[supplierId]
+        return updatedOrders
+      })
+
+      toast({
+        title: 'Success!',
+        description: 'Order has been sent.',
+      })
+
+      router.push(`/dashboard/order/${newOrder.id}`)
     } catch (error) {
       console.log(error)
       toast({

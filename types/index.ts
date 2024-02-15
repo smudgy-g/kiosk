@@ -1,3 +1,5 @@
+import { User } from "@supabase/supabase-js"
+
 export type NavLink = {
   icon: any
   route: string
@@ -30,6 +32,10 @@ export type Order = {
   supplier_id: string
   created_at: string
   delivery_date: string
+}
+
+export interface OrderWithTotal extends Order {
+  total: number
 }
 
 export interface OrderWithSupplierName extends Order {
@@ -77,4 +83,11 @@ export type UserProfile = {
   company: string | null
   email: string | null
   address: string | null
+}
+
+export interface EmailPostData {
+  user: User
+  order: OrderWithTotal
+  products: ProductWithQuantity[]
+  supplier: Supplier
 }
