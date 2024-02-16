@@ -12,6 +12,7 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from '@/components/ui/use-toast'
 import { useCreateOrder } from '@/lib/queries/orders'
+import { useGetProfile } from '@/lib/queries/user'
 import { cn } from '@/lib/utils'
 import { orderConfirmFormSchema } from '@/lib/validators'
 import { NewOrder, LocalStorageOrder } from '@/types'
@@ -38,6 +39,7 @@ export default function OrderForm({
 }) {
   const { orders, setOrders, currentSupplier } = useOrderContext()
   const { mutateAsync: createOrder } = useCreateOrder()
+  const { data: profile } = useGetProfile()
   const router = useRouter()
 
   const form = useForm<z.infer<typeof orderConfirmFormSchema>>({
@@ -69,7 +71,7 @@ export default function OrderForm({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          user,
+          user: profile,
           order,
           products,
           supplier: currentSupplier,

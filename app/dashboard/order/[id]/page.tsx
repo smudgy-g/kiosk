@@ -8,6 +8,7 @@ import { useGetOrderById } from '@/lib/queries/orders'
 import { useGetProductsByOrder } from '@/lib/queries/products'
 import { OrderProduct } from '@/types'
 import { format } from 'date-fns'
+import Link from 'next/link'
 
 export default function OrderSlugRoute({
   params: { id },
@@ -40,7 +41,9 @@ export default function OrderSlugRoute({
           <div className="w-full text-left">
             <h2 className="text-4xl font-bold">
               Order from <br></br>
-              <span className="text-primary">{order.suppliers?.name}</span>
+              <span className="text-primary">
+                <Link href={`/dashboard/${order.supplier_id}`}>{order.suppliers?.name}</Link>
+              </span>
             </h2>
           </div>
           <div className="flex flex-col mt-4 gap-3">

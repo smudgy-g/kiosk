@@ -1,4 +1,4 @@
-import { User } from "@supabase/supabase-js"
+import { User } from '@supabase/supabase-js'
 
 export type NavLink = {
   icon: any
@@ -86,7 +86,7 @@ export type UserProfile = {
 }
 
 export interface EmailPostData {
-  user: User
+  user: UserProfile
   order: OrderWithTotal
   products: ProductWithQuantity[]
   supplier: Supplier

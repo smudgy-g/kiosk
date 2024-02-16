@@ -13,6 +13,7 @@ import { Product } from '@/types'
 import {
   ChatBubbleIcon,
   EnvelopeClosedIcon,
+  PaperPlaneIcon,
   PersonIcon,
   TrashIcon,
 } from '@radix-ui/react-icons'
@@ -67,7 +68,19 @@ export default function SupplierSlugRoute({
               </div>
             </div>
           </div>
-          <ProductButton supplierId={id} />
+          <div className="flex gap-8">
+            <ProductButton supplierId={id} />
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-fit h-14 px-6"
+            >
+              <Link href={`/dashboard/supplier/${id}/order`} className='inline-flex items-center justify-center'>
+                <PaperPlaneIcon className="mr-2 h-4 w-4" />
+                New Order
+              </Link>
+            </Button>
+          </div>
         </div>
       )}
       <Separator />
@@ -80,7 +93,7 @@ export default function SupplierSlugRoute({
           <DataTable
             columns={productColumnsDef}
             data={products as Product[]}
-            searchPlaceholder='Search products...'
+            searchPlaceholder="Search products..."
           />
         )}
       </div>

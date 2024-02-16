@@ -11,9 +11,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   try {
     const data = await resend.emails.send({
-      from: 'Kyosk <kyosk@adamgriff.dev>', // 'Acme <onboarding@resend.dev>',
+      from: 'Kyosk <kyosk@adamgriff.dev>',
       to: [supplier.email!],
-      subject: `Order for ${user.user_metadata.company} for delivery ${order.delivery_date}`,
+      subject: `Order for ${user.company} for delivery ${order.delivery_date}`,
       react: EmailTemplate({
         user,
         order,

@@ -12,12 +12,12 @@ export default async function IndexPage() {
     >
       <div className="w-full h-full flex justify-center items-center text-primary-foreground bg-green-300 bg-opacity-70">
         <div className="max-w-lg px-6">
-          <h1 className="mb-5 text-5xl font-bold font-serif tracking-tighter">
-            Welcome to kyosk
+          <h1 className="mb-5 text-7xl font-bold font-serif tracking-tighter">
+            kyosk
           </h1>
-          <p className="mb-5 text-xl text-left leading-6">
-            Consolidate your ordering needs into one convenient platform, saving
-            you time and effort. Whether you need to restock ingredients,
+          <p className="mb-5 text-xl text-left leading-6 text-black">
+            Consolidate your ordering needs into one convenient platform & save
+            time and effort. When you need to restock ingredients,
             beverages, or other supplies, kiosk has got you covered.
           </p>
           <Button

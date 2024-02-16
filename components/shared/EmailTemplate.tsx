@@ -9,12 +9,12 @@ export const EmailTemplate: React.FC<Readonly<EmailPostData>> = ({
 }) => (
   <div>
     <body>
-      <h1>Order for {user.user_metadata.company}</h1>
+      <h1>Order for {user.company}</h1>
 
       <p>Dear {supplier.name},</p>
 
       <p>
-        {user.user_metadata.company} would like to order the following items for
+        {user.company} would like to order the following items for
         delivery: <strong>{order.delivery_date}</strong>
       </p>
       <p>Additional comments:</p>
@@ -53,7 +53,7 @@ export const EmailTemplate: React.FC<Readonly<EmailPostData>> = ({
       </p>
 
       <p>Best regards,</p>
-      <p>{user.user_metadata.full_name}</p>
+      <p>{user.full_name}</p>
       <a href="mailto:${client.email}">{user.email}</a>
     </body>
   </div>

@@ -11,7 +11,7 @@ import { Providers } from '@/components/context/Providers'
 export const metadata: Metadata = {
   title: 'Kyosk',
   description:
-    'Consolidate your ordering needs into one convenient platform saving you time and effort. Whether you need to restock ingredients, beverages, or other supplies, kyosk has got you covered.',
+    'Consolidate your ordering needs into one convenient platform saving time and effort. Whether you need to restock ingredients, beverages, or other supplies, kyosk has got you covered.',
 }
 
 export default async function RootLayout({

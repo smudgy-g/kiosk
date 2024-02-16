@@ -9,7 +9,7 @@ const BottomBar = () => {
   return (
     <section className="z-50 flex justify-around items-center w-full bg-background border-foreground border-t sticky bottom-0 px-5 py-1 md:hidden">
       {NAV_LINKS.map((link) => {
-        const isActive = pathname.startsWith(link.route)
+        const isActive = pathname === link.route
         return (
           <Link
             href={link.route}

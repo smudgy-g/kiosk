@@ -18,7 +18,6 @@ export function Providers({
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange
         >
           <OrderProvider>{children}</OrderProvider>
         </ThemeProvider>
