@@ -42,7 +42,7 @@ export async function createOrder(
 
     return newOrder
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -67,7 +67,7 @@ export async function getOrders() {
 
     return data
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -92,7 +92,7 @@ export async function getOrderById(id: string) {
     if (error) throw new Error(error.message)
     return order
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -108,7 +108,7 @@ export async function lastMonthOrdersByCategory(month: string) {
     if (error) throw new Error(error.message)
     return data
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -124,7 +124,7 @@ export async function averageOrdersPerMonth() {
     if (error) throw new Error(error.message)
     return data
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -141,6 +141,6 @@ export async function currentMonthOrdersComparison() {
     if (error) throw new Error(error.message)
     return data
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }

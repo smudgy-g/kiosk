@@ -34,7 +34,7 @@ export async function createSupplier(
 
     return data
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -48,7 +48,7 @@ export async function getSuppliers() {
 
     return data
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -66,7 +66,7 @@ export async function getSupplierById(id: string) {
 
     return data
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -96,7 +96,7 @@ export async function updateSupplierDetails({
 
     return data
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -110,6 +110,6 @@ export async function deleteSupplier(id: string) {
 
     return
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }

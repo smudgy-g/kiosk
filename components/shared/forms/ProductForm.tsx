@@ -86,7 +86,7 @@ export default function ProductForm({
           if (setOpen) return setOpen(false)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
         toast({
           title: 'Error updating',
           description: 'Something went wrong, please try again later.',
@@ -111,7 +111,7 @@ export default function ProductForm({
           if (setOpen) return setOpen(false)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
         toast({
           title: 'Error',
           description: 'Something went wrong, please try again later.',

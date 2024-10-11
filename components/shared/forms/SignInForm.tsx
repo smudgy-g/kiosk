@@ -18,7 +18,7 @@ import { toast } from '@/components/ui/use-toast'
 import { Input } from '@/components/ui/input'
 
 const SignInForm = () => {
-  const { mutateAsync: signInUser, isError } = useSignInUser()
+  const { mutateAsync: signInUser, error } = useSignInUser()
   const form = useForm<z.infer<typeof signInFormSchema>>({
     resolver: zodResolver(signInFormSchema),
     defaultValues: {
@@ -32,10 +32,10 @@ const SignInForm = () => {
       email: data.email,
       password: data.password,
     })
-    if (isError) {
+    if (error) {
       return toast({
         title: 'Error',
-        description: 'Something went wrong, please try again.',
+        description: error.message,
       })
     }
     form.reset()

@@ -78,7 +78,7 @@ export default function SupplierForm({
           router.push(`/dashboard/supplier/${newSupplier.id}`)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
         toast({
           title: 'Error',
           description: 'Something went wrong, please try again later.',
@@ -104,7 +104,7 @@ export default function SupplierForm({
           return setOpen!(false)
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
         toast({
           title: 'Error',
           description: 'Something went wrong, please try again later.',

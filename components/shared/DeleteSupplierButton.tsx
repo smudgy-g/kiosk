@@ -29,7 +29,7 @@ export default function DeleteSupplierButton({ id }: { id: string }) {
       })
       return router.replace('/dashboard/supplier')
     } catch (error) {
-      console.log(error)
+      console.error(error)
       return toast({
         title: 'Error',
         description: 'Something went wrong, please try again.',

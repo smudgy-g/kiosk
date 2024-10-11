@@ -1,3 +1,5 @@
+'use client'
+
 import { LocalStorageOrder, OrderContextType, Supplier } from '@/types'
 import { createContext, useContext, useState, useEffect } from 'react'
 

@@ -86,9 +86,9 @@ export default function OrderForm({
       })
 
       if (!newOrder) throw new Error('Error adding order to database.')
-      
+
       form.reset()
-      
+
       setOrders((prevOrders: LocalStorageOrder) => {
         const updatedOrders = { ...prevOrders }
         delete updatedOrders[supplierId]
@@ -102,7 +102,7 @@ export default function OrderForm({
 
       router.push(`/dashboard/order/${newOrder.id}`)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       toast({
         title: 'Error',
         description: 'Something went wrong, please try again later.',

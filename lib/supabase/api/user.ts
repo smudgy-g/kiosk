@@ -15,6 +15,7 @@ export async function createUserAccount({
 }: NewUser) {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
+  let redirectPath = 'sign-up/success'
   try {
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -27,14 +28,12 @@ export async function createUserAccount({
         },
       },
     })
-    if (error) {
-      redirect('/error')
-    }
-
-    revalidatePath('/dashboard', 'layout')
-    redirect('/dashboard')
+    if (error) throw error
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    redirectPath = '/error'
+  } finally {
+    redirect(redirectPath)
   }
 }
 
@@ -47,71 +46,60 @@ export async function signInUser({
 }) {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
-  try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-    if (error) {
-      redirect('/error')
-    }
 
-    revalidatePath('/dashboard', 'layout')
-    redirect('/dashboard')
-  } catch (error) {
-    console.log(error)
-  }
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
+  if (error) throw error
+
+  revalidatePath('/dashboard', 'layout')
+  redirect('/dashboard')
 }
 
 export async function getUser() {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
-  try {
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.getUser()
-    if (error || !user) {
-      redirect('/sign-in')
-    }
 
-    return user
-  } catch (error) {
-    console.log(error)
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser()
+  if (error || !user) {
+    redirect('/sign-in')
   }
+
+  return user
 }
 
 export async function getProfile() {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
-  try {
-    const {
-      data: { user },
-      error: getUserError,
-    } = await supabase.auth.getUser()
-    if (getUserError || !user) {
-      redirect('/sign-in')
-    }
 
-    const { data: profile, error: getProfileError } = await supabase
-      .from('profiles')
-      .select(`full_name, company, address`)
-      .eq('id', user.id)
-      .single()
-
-    if (getProfileError) throw new Error(getProfileError.message)
-
-    const profileData = {
-      email: user.email,
-      full_name: profile.full_name,
-      company: profile.company,
-      address: profile.address,
-    }
-
-    return JSON.parse(JSON.stringify(profileData))
-  } catch (error) {
-    console.log(error)
+  const {
+    data: { user },
+    error: getUserError,
+  } = await supabase.auth.getUser()
+  if (getUserError || !user) {
+    redirect('/sign-in')
   }
+
+  const { data: profile, error: getProfileError } = await supabase
+    .from('profiles')
+    .select(`full_name, company, address`)
+    .eq('id', user.id)
+    .single()
+
+  if (getProfileError) throw new Error(getProfileError.message)
+
+  const profileData = {
+    email: user.email,
+    full_name: profile.full_name,
+    company: profile.company,
+    address: profile.address,
+  }
+
+  return JSON.parse(JSON.stringify(profileData))
 }
 
 export async function updateProfile({
@@ -121,31 +109,27 @@ export async function updateProfile({
 }: UserProfile) {
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
-  try {
-    const {
-      data: { user },
-      error: getUserError,
-    } = await supabase.auth.getUser()
+  const {
+    data: { user },
+    error: getUserError,
+  } = await supabase.auth.getUser()
 
-    if (getUserError || !user) {
-      redirect('/sign-in')
-    }
-
-    const { data, error: updateError } = await supabase
-      .from('profiles')
-      .update({
-        full_name,
-        company,
-        address,
-      })
-      .eq('id', user.id)
-      .select()
-      .single()
-
-    if (updateError) throw new Error(updateError.message)
-
-    return data
-  } catch (error) {
-    console.log(error)
+  if (getUserError || !user) {
+    redirect('/sign-in')
   }
+
+  const { data, error: updateError } = await supabase
+    .from('profiles')
+    .update({
+      full_name,
+      company,
+      address,
+    })
+    .eq('id', user.id)
+    .select()
+    .single()
+
+  if (updateError) throw new Error(updateError.message)
+
+  return data
 }

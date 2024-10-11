@@ -69,7 +69,7 @@ export default function SupplierForm({ profile, setOpen }: SupplierFormProps) {
         return setOpen!(false)
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       toast({
         title: 'Error',
         description: 'Something went wrong, please try again later.',

@@ -32,7 +32,7 @@ export async function createProduct(product: NewProduct, supplierId: string) {
 
     return data
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -49,7 +49,7 @@ export async function getProductsBySupplier(id: string) {
 
     return data
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 export async function getProductsByOrder(id: string) {
@@ -58,18 +58,20 @@ export async function getProductsByOrder(id: string) {
   try {
     const { data, error } = await supabase
       .from('order_product')
-      .select(`
+      .select(
+        `
       quantity,
       products (
         *
       )
-      `)
+      `
+      )
       .eq('order_id', id)
 
     if (error) throw new Error(error.message)
     return data
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -100,7 +102,7 @@ export async function updateProductDetails({
 
     return data
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -114,6 +116,6 @@ export async function deleteProduct(id: string) {
 
     return
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
